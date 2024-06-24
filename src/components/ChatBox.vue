@@ -3,16 +3,24 @@ import { ref } from 'vue';
 import ollama from 'ollama';
 
 const chatInput = ref('Why is the sky blue?')
-
+const messages = ref([{ role: 'agent', content: 'Hello, I am kand7dev. How can I help you today?'}]);
+const currentOutputMessageContent = ref('')
 const submitChat = async () => {
-    const content = chatInput.value
-    chatInput.value = ''
+    const content = chatInput.value;
+    chatInput.value = '';
+    const inputMessage = { role: 'user', content };
+    messages.value.push(inputMessage);
     const response = await ollama.chat({
         model: 'phi3',
-        messages: [{role: 'user', content}]
+        messages: [inputMessage],
+        stream: true
     });
-    console.log(response.message.content)
-}
+    for await (const part of response){
+        currentOutputMessageContent.value += part.message.content
+    }
+    messages.value.push({ role: 'agent', content: currentOutputMessageContent.value })
+    currentOutputMessageContent.value = ''
+    }
 
 </script>
 
@@ -20,6 +28,12 @@ const submitChat = async () => {
     <div id ="chatBox">
         <div id="chatContainer">
             <div id="chatArea" ref="chatArea"></div>
+            <div v-for="message in messages" :key="message.content">
+                {{ message.content }}
+            </div>
+            <div v-if="currentOutputMessageContent">
+                {{  currentOutputMessageContent }}
+            </div>
         </div>
         <div id="inputArea">
             <input id="chatInput" v-model="chatInput" @keyup.enter="submitChat">
