@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import ollama from 'ollama';
 
 const chatInput = ref('Why is the sky blue?')
 
-const submitChat = () => {
-    console.log('Submitting chat', chatInput.value)
+const submitChat = async () => {
+    const content = chatInput.value
     chatInput.value = ''
+    const response = await ollama.chat({
+        model: 'phi3',
+        messages: [{role: 'user', content}]
+    });
+    console.log(response.message.content)
 }
+
 </script>
 
 <template>
