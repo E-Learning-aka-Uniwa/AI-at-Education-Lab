@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import ollama from 'ollama';
+import ChatMessage from './ChatMessage.vue';
+
+
 const initialize = async () => {
     const response = await ollama.chat({
         model: 'phi3',
@@ -37,10 +40,10 @@ const submitChat = async () => {
         <div id="chatContainer">
             <div id="chatArea" ref="chatArea"></div>
             <div v-for="message in messages" :key="message.content">
-                {{ message.content }}
+                <ChatMessage :message="message" />
             </div>
             <div v-if="currentOutputMessageContent">
-                {{  currentOutputMessageContent }}
+                <ChatMessage :message="{role: 'agent', content: currentOutputMessageContent}"/>
             </div>
         </div>
         <div id="inputArea">
@@ -65,6 +68,8 @@ const submitChat = async () => {
     position: relative;
     width: 100%;
     height: calc(100% - 100px);
+    border: 3px dotted rgba(0, 0, 0, 0.473);
+    padding: 10px;
 }
 
 #chatArea { 
