@@ -21,7 +21,6 @@ const submitChat = async () => {
     chatInput.value = '';
     const inputMessage = { role: 'user', content };
     messages.value.push(inputMessage);
-    console.log("Chatting with model: ", currentModel.value);
     const response = await ollama.chat({
         model: currentModel.value,
         messages: [inputMessage],
@@ -39,7 +38,6 @@ async function initializeChat(){
         model: 'phi3',
         messages: [{ role: 'user', content: `You're a personal AI teacher. You can't break character. You're going to provide information about topics the user asks about. Start by introduction yourself.` }]
     });
-    console.log('Initialized');
     messages.value[0] = ({ role: 'agent', content: response.message.content });
     isFetching.value = false;
 }
