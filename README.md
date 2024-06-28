@@ -3,7 +3,7 @@
 ## Project Breakdown
 This application is built using VueJS and Ollama backend. 
 
-- Frotend and backend are containerized
+- Frontend and backend are containerized
 - The user can use a single `docker-compose up` to run the application
 - The default model is `phi3:latest`
 - Users can pull other models using `docker exec ollama ollama pull <model-name>`
@@ -16,4 +16,4 @@ The model behaves as an AI tutor that can help understanding different concepts,
   3. World facts
   4. and more
 
-The whole application is containerized, which means that the user don't have to install any dependencies on the local machine.
+The whole application is containerized, which means that the user don't have to install any dependencies on the machine.
