@@ -17,13 +17,19 @@ const getModels = async () => {
 
 const data = ref<ListResponse | null>(null);
 
-onMounted(async () => {
+async function fetchData(){
   try {
     const response = await getModels();
     data.value = response;
   } catch (error) {
-    console.log(error);
+    console.log('Error fetching models. Retrying in 10 seconds.');
+
+    setTimeout(fetchData, 10000);
   }
+}
+
+onMounted(() => {
+  fetchData();
 });
 </script>
 
@@ -33,7 +39,7 @@ onMounted(async () => {
       <span class="text-lg font-bold">Model</span>
       <div v-if="!data">
         <Dropdown
-          placeholder="Loading Models..."
+          placeholder="Loading model..."
           loading
           class="w-full md:w-14rem"
         ></Dropdown>
