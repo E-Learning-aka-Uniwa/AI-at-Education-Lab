@@ -39,7 +39,7 @@ const submitChat = async () => {
 async function initializeChat() {
   try {
     const response = await ollama.chat({
-      model: "phi3:latest",
+      model: "llama3:8b",
       messages: [
         {
           role: "user",

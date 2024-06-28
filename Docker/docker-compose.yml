@@ -9,8 +9,15 @@ services:
       - ./run-ollama.sh:/run-ollama.sh
     pull_policy: always
     tty: true
-    restart: always
+    restart: no
     entrypoint: ["/usr/bin/bash", "run-ollama.sh"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
   vueapp:
     image: kand7dev99/kand7dev-projects:ollama-vuejs
     container_name: vue-frontend
