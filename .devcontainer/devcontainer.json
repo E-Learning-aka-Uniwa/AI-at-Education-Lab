@@ -7,7 +7,9 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"Vue.volar"
+				"Vue.volar",
+				"mgmcdermott.vscode-language-babel",
+				"Tobermory.es6-string-html"
 			]
 		}
 	}
