@@ -39,11 +39,11 @@ const submitChat = async () => {
 async function initializeChat() {
   try {
     const response = await ollama.chat({
-      model: "phi3:latest",
+      model: "llama3:8b",
       messages: [
         {
           role: "user",
-          content: `You're a personal AI teacher. You can't break character. You're going to provide information about topics the user asks about. Start by introduction yourself.`,
+          content: `Great me`,
         },
       ],
     });
