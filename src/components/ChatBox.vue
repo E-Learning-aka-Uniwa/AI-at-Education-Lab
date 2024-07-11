@@ -14,7 +14,6 @@ const isFetching = ref(true);
 const currentOutputMessageContent = ref("");
 
 onMounted(() => {
-  initializeChat();
 });
 const submitChat = async () => {
   const content = chatInput.value;
@@ -36,24 +35,24 @@ const submitChat = async () => {
   currentOutputMessageContent.value = "";
 };
 
-async function initializeChat() {
-  try {
-    const response = await ollama.chat({
-      model: "llama3:8b",
-      messages: [
-        {
-          role: "user",
-          content: `Great me`,
-        },
-      ],
-    });
-    messages.value[0] = { role: "agent", content: response.message.content };
-    isFetching.value = false;
-  } catch (error) {
-    console.log("Error initializing chat. Retrying in 30 seconds.");
-    setTimeout(initializeChat, 30000);
-  }
-}
+// async function initializeChat() {
+//   try {
+//     const response = await ollama.chat({
+//       model: "llama3:8b",
+//       messages: [
+//         {
+//           role: "user",
+//           content: `Great me`,
+//         },
+//       ],
+//     });
+//     messages.value[0] = { role: "agent", content: response.message.content };
+//     isFetching.value = false;
+//   } catch (error) {
+//     console.log("Error initializing chat. Retrying in 30 seconds.");
+//     setTimeout(initializeChat, 30000);
+//   }
+// }
 </script>
 
 <template>
